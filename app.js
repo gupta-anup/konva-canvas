@@ -15,6 +15,10 @@ const rect = new Konva.Rect({
   width: 100,
   height: 100,
   fill: 'pink',
+  stroke: 'black',
+  strokeWidth: 4,
+  cornerRadius: 10,
+  opacity: 0.5,
 });
 
 layer.add(rect);
