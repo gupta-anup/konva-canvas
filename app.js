@@ -19,6 +19,7 @@ const rect = new Konva.Rect({
   strokeWidth: 4,
   cornerRadius: 10,
   opacity: 0.5,
+  draggable: true,
 });
 
 layer.add(rect);
