@@ -3,7 +3,7 @@ const log = console.log;
 const stage = new Konva.Stage({
   height: window.innerHeight,
   width: window.innerWidth,
-  container: 'root',
+  container: 'container',
 })
 
 const layer = new Konva.Layer();
