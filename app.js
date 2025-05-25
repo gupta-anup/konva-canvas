@@ -150,9 +150,5 @@ imageObj.onload = function () {
     draggable: true,
   });
   layer.add(konvaImage);
-  layer.draw();
 };
 imageObj.src = 'https://konvajs.org/assets/lion.png';
-
-// Redraw layer
-layer.draw();
