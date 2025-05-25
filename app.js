@@ -8,3 +8,13 @@ const stage = new Konva.Stage({
 
 const layer = new Konva.Layer();
 stage.add(layer);
+
+const rect = new Konva.Rect({
+  x: 20,
+  y: 20,
+  width: 100,
+  height: 100,
+  fill: 'pink',
+});
+
+layer.add(rect);
