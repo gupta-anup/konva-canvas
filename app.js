@@ -22,4 +22,5 @@ const rect = new Konva.Rect({
   draggable: true,
 });
 
-layer.add(rect);
+// layer.add(rect); // Way 1
+rect.moveTo(layer); // Way 2
