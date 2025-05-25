@@ -18,7 +18,7 @@ const rect = new Konva.Rect({
   stroke: 'black',
   strokeWidth: 4,
   cornerRadius: 10,
-  opacity: 0.5,
+  opacity: 1,
   draggable: true,
 });
 
