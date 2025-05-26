@@ -7,9 +7,9 @@ const stage = new Konva.Stage({
 const layer = new Konva.Layer();
 stage.add(layer);
 
-// Utility: Draw square bracket around a shape
+// Utility: Draw square bracket
 function drawBrackets(x, y, width, height, padding = 5) {
-  const leftBracket = new Konva.Line({
+  const left = new Konva.Line({
     points: [
       x - padding, y - padding,
       x - padding - 5, y - padding,
@@ -17,10 +17,9 @@ function drawBrackets(x, y, width, height, padding = 5) {
       x - padding, y + height + padding
     ],
     stroke: 'black',
-    strokeWidth: 2,
+    strokeWidth: 2
   });
-
-  const rightBracket = new Konva.Line({
+  const right = new Konva.Line({
     points: [
       x + width + padding, y - padding,
       x + width + padding + 5, y - padding,
@@ -28,53 +27,103 @@ function drawBrackets(x, y, width, height, padding = 5) {
       x + width + padding, y + height + padding
     ],
     stroke: 'black',
-    strokeWidth: 2,
+    strokeWidth: 2
   });
-
-  layer.add(leftBracket, rightBracket);
+  layer.add(left, right);
 }
 
-// Example data with condition
-const male = new Konva.Rect({
-  x: 100,
-  y: 100,
+// --- Parents ---
+const dad = new Konva.Rect({
+  x: 150,
+  y: 50,
   width: 40,
   height: 40,
   stroke: 'black',
   strokeWidth: 2,
 });
-layer.add(male);
+layer.add(dad);
 
-const maleAdopted = true;
-if (maleAdopted) {
-  drawBrackets(male.x(), male.y(), male.width(), male.height());
-}
-
-const female = new Konva.Circle({
-  x: 200,
-  y: 120,
+const mom = new Konva.Circle({
+  x: 250,
+  y: 70,
   radius: 20,
   stroke: 'black',
   strokeWidth: 2,
 });
-layer.add(female);
+layer.add(mom);
 
-const femaleAdopted = true;
-if (femaleAdopted) {
-  drawBrackets(female.x() - female.radius(), female.y() - female.radius(), female.radius() * 2, female.radius() * 2);
-}
-
-const diamond = new Konva.Line({
-  points: [300, 100, 320, 120, 300, 140, 280, 120],
+// Connect dad and mom
+layer.add(new Konva.Line({
+  points: [190, 70, 230, 70],
   stroke: 'black',
   strokeWidth: 2,
-  closed: true,
+}));
+
+// Vertical line to children
+layer.add(new Konva.Line({
+  points: [210, 70, 210, 120],
+  stroke: 'black',
+  strokeWidth: 2,
+}));
+
+// Horizontal line connecting children
+layer.add(new Konva.Line({
+  points: [119, 120, 301, 120],
+  stroke: 'black',
+  strokeWidth: 2,
+}));
+
+// --- Children ---
+
+// Son
+const son = new Konva.Rect({
+  x: 100,
+  y: 140,
+  width: 40,
+  height: 40,
+  stroke: 'black',
+  strokeWidth: 2,
 });
-layer.add(diamond);
+layer.add(son);
+layer.add(new Konva.Line({
+  points: [120, 120, 120, 140],
+  stroke: 'black',
+  strokeWidth: 2,
+}));
 
-const unknownAdopted = true;
-if (unknownAdopted) {
-  drawBrackets(280, 100, 40, 40); // Approx bounding box of diamond
-}
+// Daughter
+const daughter = new Konva.Circle({
+  x: 210,
+  y: 160,
+  radius: 20,
+  stroke: 'black',
+  strokeWidth: 2,
+});
+layer.add(daughter);
+layer.add(new Konva.Line({
+  points: [210, 120, 210, 140],
+  stroke: 'black',
+  strokeWidth: 2,
+}));
 
-layer.draw();
+// Adopted Son
+const adopted = new Konva.Rect({
+  x: 280,
+  y: 140,
+  width: 40,
+  height: 40,
+  stroke: 'black',
+  strokeWidth: 2,
+});
+layer.add(adopted);
+
+// Dashed vertical line for adopted
+layer.add(new Konva.Line({
+  points: [300, 120, 300, 140],
+  stroke: 'black',
+  strokeWidth: 2,
+  dash: [5, 5],
+}));
+
+// Add square brackets to adopted
+drawBrackets(adopted.x(), adopted.y(), adopted.width(), adopted.height());
