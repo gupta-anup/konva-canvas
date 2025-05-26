@@ -7,7 +7,7 @@ const stage = new Konva.Stage({
 const layer = new Konva.Layer();
 stage.add(layer);
 
-// Utility: Draw square bracket
+// draw bracket function
 function drawBrackets(x, y, width, height, padding = 5) {
   const left = new Konva.Line({
     points: [
@@ -32,7 +32,6 @@ function drawBrackets(x, y, width, height, padding = 5) {
   layer.add(left, right);
 }
 
-// --- Parents ---
 const dad = new Konva.Rect({
   x: 150,
   y: 50,
@@ -52,30 +51,28 @@ const mom = new Konva.Circle({
 });
 layer.add(mom);
 
-// Connect dad and mom
+// connect dad and mom
 layer.add(new Konva.Line({
   points: [190, 70, 230, 70],
   stroke: 'black',
   strokeWidth: 2,
 }));
 
-// Vertical line to children
+// line to children
 layer.add(new Konva.Line({
   points: [210, 70, 210, 120],
   stroke: 'black',
   strokeWidth: 2,
 }));
 
-// Horizontal line connecting children
+// line connecting children
 layer.add(new Konva.Line({
   points: [119, 120, 301, 120],
   stroke: 'black',
   strokeWidth: 2,
 }));
 
-// --- Children ---
-
-// Son
+// son
 const son = new Konva.Rect({
   x: 100,
   y: 140,
@@ -91,7 +88,7 @@ layer.add(new Konva.Line({
   strokeWidth: 2,
 }));
 
-// Daughter
+// daughter
 const daughter = new Konva.Circle({
   x: 210,
   y: 160,
@@ -106,7 +103,7 @@ layer.add(new Konva.Line({
   strokeWidth: 2,
 }));
 
-// Adopted Son
+// adopted Son
 const adopted = new Konva.Rect({
   x: 280,
   y: 140,
@@ -117,7 +114,7 @@ const adopted = new Konva.Rect({
 });
 layer.add(adopted);
 
-// Dashed vertical line for adopted
+// dashed line for adopted
 layer.add(new Konva.Line({
   points: [300, 120, 300, 140],
   stroke: 'black',
@@ -125,5 +122,5 @@ layer.add(new Konva.Line({
   dash: [5, 5],
 }));
 
-// Add square brackets to adopted
+// brackets around adopted
 drawBrackets(adopted.x(), adopted.y(), adopted.width(), adopted.height());
