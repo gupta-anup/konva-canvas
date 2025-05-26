@@ -1,154 +1,87 @@
-const log = console.log;
 
 const stage = new Konva.Stage({
-  height: window.innerHeight,
-  width: window.innerWidth,
   container: 'container',
+  width: window.innerWidth,
+  height: window.innerHeight,
 });
 
 const layer = new Konva.Layer();
 stage.add(layer);
 
-// Rectangle
-const rect = new Konva.Rect({
-  x: 20,
-  y: 20,
-  width: 100,
-  height: 100,
-  fill: 'pink',
-  stroke: 'black',
-  strokeWidth: 4,
-  cornerRadius: 10,
-  opacity: 1,
-  draggable: true,
-});
-layer.add(rect);
+function drawGenderIcon(x, y, gender, highlight = false) {
+  const group = new Konva.Group({ x, y });
 
-// Circle
-const circle = new Konva.Circle({
-  x: 180,
-  y: 70,
-  radius: 50,
-  fill: 'lightblue',
-  stroke: 'black',
-  strokeWidth: 4,
-  draggable: true,
-});
-layer.add(circle);
+  // Gender symbols
+  if (gender === 'male') {
+    group.add(new Konva.Circle({
+      x: 0,
+      y: 0,
+      radius: 20,
+      stroke: 'blue',
+      strokeWidth: 2,
+    }));
 
-// Ellipse
-const ellipse = new Konva.Ellipse({
-  x: 320,
-  y: 70,
-  radius: { x: 60, y: 40 },
-  fill: 'lightgreen',
-  stroke: 'black',
-  strokeWidth: 4,
-  draggable: true,
-});
-layer.add(ellipse);
+    group.add(new Konva.Line({
+      points: [0, -20, 15, -35],
+      stroke: 'blue',
+      strokeWidth: 2,
+    }));
 
-// Line
-const line = new Konva.Line({
-  points: [400, 20, 500, 100, 450, 120],
-  fill: '',
-  stroke: 'orange',
-  strokeWidth: 4,
-  lineCap: 'round',
-  lineJoin: 'round',
-  draggable: true,
-});
-layer.add(line);
+    group.add(new Konva.Line({
+      points: [10, -35, 15, -35, 15, -30],
+      stroke: 'blue',
+      strokeWidth: 2,
+    }));
+  } else if (gender === 'female') {
+    group.add(new Konva.Circle({
+      x: 0,
+      y: 0,
+      radius: 20,
+      stroke: 'pink',
+      strokeWidth: 2,
+    }));
 
-// Arrow
-const arrow = new Konva.Arrow({
-  points: [520, 20, 620, 100],
-  pointerLength: 15,
-  pointerWidth: 15,
-  fill: 'red',
-  stroke: 'red',
-  strokeWidth: 4,
-  draggable: true,
-});
-layer.add(arrow);
+    group.add(new Konva.Line({
+      points: [0, 20, 0, 35],
+      stroke: 'pink',
+      strokeWidth: 2,
+    }));
 
-// Star
-const star = new Konva.Star({
-  x: 700,
-  y: 70,
-  numPoints: 5,
-  innerRadius: 20,
-  outerRadius: 40,
-  fill: 'yellow',
-  stroke: 'black',
-  strokeWidth: 4,
-  draggable: true,
-});
-layer.add(star);
+    group.add(new Konva.Line({
+      points: [-5, 35, 5, 35],
+      stroke: 'pink',
+      strokeWidth: 2,
+    }));
+  } else if (gender === 'unknown') {
+    group.add(new Konva.Line({
+      points: [-20, 0, 0, -20, 20, 0, 0, 20, -20, 0],
+      stroke: 'gray',
+      strokeWidth: 2,
+      closed: true,
+    }));
+  }
 
-// Regular Polygon
-const polygon = new Konva.RegularPolygon({
-  x: 800,
-  y: 70,
-  sides: 6,
-  radius: 40,
-  fill: 'purple',
-  stroke: 'black',
-  strokeWidth: 4,
-  draggable: true,
-});
-layer.add(polygon);
+  // Optional bracket
+  if (highlight) {
+    const bracketWidth = 60;
+    const bracketHeight = 60;
+    group.add(new Konva.Line({
+      points: [-bracketWidth / 2, -bracketHeight / 2, -bracketWidth / 2, bracketHeight / 2],
+      stroke: 'black',
+      strokeWidth: 2,
+    }));
 
-// Text
-const text = new Konva.Text({
-  x: 20,
-  y: 150,
-  text: 'Konva Shapes',
-  fontSize: 30,
-  fontFamily: 'Calibri',
-  fill: 'black',
-  draggable: true,
-});
-layer.add(text);
+    group.add(new Konva.Line({
+      points: [bracketWidth / 2, -bracketHeight / 2, bracketWidth / 2, bracketHeight / 2],
+      stroke: 'black',
+      strokeWidth: 2,
+    }));
+  }
 
-// Ring
-const ring = new Konva.Ring({
-  x: 200,
-  y: 200,
-  innerRadius: 30,
-  outerRadius: 50,
-  fill: 'cyan',
-  stroke: 'black',
-  strokeWidth: 4,
-  draggable: true,
-});
-layer.add(ring);
+  layer.add(group);
+}
 
-// Wedge
-const wedge = new Konva.Wedge({
-  x: 320,
-  y: 200,
-  radius: 50,
-  angle: 60,
-  fill: 'magenta',
-  stroke: 'black',
-  strokeWidth: 4,
-  draggable: true,
-  rotation: 30,
-});
-layer.add(wedge);
-
-// Image (placeholder, needs an actual image)
-const imageObj = new window.Image();
-imageObj.onload = function () {
-  const konvaImage = new Konva.Image({
-    x: 400,
-    y: 150,
-    image: imageObj,
-    width: 100,
-    height: 100,
-    draggable: true,
-  });
-  layer.add(konvaImage);
-};
-imageObj.src = 'https://konvajs.org/assets/lion.png';
+// Draw all
+drawGenderIcon(100, 100, 'male', true);
+drawGenderIcon(250, 100, 'female', false);
+drawGenderIcon(400, 100, 'unknown', true);
